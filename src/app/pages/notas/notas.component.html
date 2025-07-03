@@ -1,0 +1,34 @@
+<!-- Página para crear y listar las notas del usuario loggeado-->
+
+<div class="notaContainer">
+  <h2>Notas</h2>
+  
+  <!--Formulario de crear nota (nota-form.component)-->
+  <app-note-form (save)="crearNota($event)"></app-note-form>
+
+
+  <hr>
+  <!-- Lista para mostrar las notas creadas-->
+  <!--Recorremos la lista de notas del usuario-->
+  <mat-card *ngFor="let nota of notas" appearance="outlined" class="tarjetaNota">
+  
+    <mat-card-header >
+      <mat-card-title>{{ nota.titulo }}</mat-card-title>
+      <mat-card-subtitle>{{ nota.descripcion }}</mat-card-subtitle>
+    </mat-card-header>
+    <!--Escribimos el texto de la nota obtenida-->
+
+    <!--Botones para eliminar y editar la nota-->
+    <mat-card-actions>
+      <button
+        mat-icon-button
+        color="warn"
+        aria-label="Botón para borrar nota"
+        (click)="borrarNota(nota.id)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <!-- Creamos la función onClick para borrar con el id de la nota -->
+    </mat-card-actions>
+  </mat-card>
+</div>

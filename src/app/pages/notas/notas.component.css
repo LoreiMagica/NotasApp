@@ -1,0 +1,15 @@
+.notaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px;
+  gap: 6px;
+}
+
+.tarjetaNota {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}

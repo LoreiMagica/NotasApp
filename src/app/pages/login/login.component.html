@@ -1,0 +1,26 @@
+<!--Página que se verá al entrar a la web, donde el usuario deberá iniciar sesión con su usuario y contraseña-->
+<div class="container">
+<h2>Iniciar sesión</h2>
+
+<!--Formulario para que el usuario introduzca sus credenciales (o lo intente)-->
+<form (ngSubmit)="login()" > <!--ponemos estilo flex para que se adapte a la pantalla del dispositivo-->
+  <!--Al pulsar en el botón "Entrar", se ejecutará el método login en login.component-->
+
+  <mat-form-field appearance="fill">
+    <input matInput type="text" [(ngModel)]="usuario" name="username" placeholder="Usuario" required>
+  </mat-form-field> 
+  
+  <mat-form-field appearance="fill">
+    <input matInput type="password" [(ngModel)]="contrasena" name="password" placeholder="Contraseña" required>
+
+  </mat-form-field>
+
+  <!-- Ponemos estilo a los botones para que ocupen el ancho del cuadro de login y obtenga el estilo de angular material-->
+  
+  <button mat-raised-button color="primary" type="submit">Entrar</button>
+  <!--Ponemos estilo de angular al botón de Entrar-->
+
+
+</form>
+
+</div>

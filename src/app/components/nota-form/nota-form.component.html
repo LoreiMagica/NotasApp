@@ -1,0 +1,15 @@
+<!--Módulo de la págna de notas.component donde se establece un formulario para que el usuario introduzca los datos para crear una nueva nota-->
+
+<form (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column; gap: 16px; width: 400px;"> <!--ponemos estilo flex para que se adapte a la pantalla del dispositivo-->
+  <!--Al clickar en el botón Crear, se ejecuta el método onSubmit en el componente fr notas-form-->
+
+  <mat-form-field appearance="fill">
+  <input matInput [(ngModel)]="nota.titulo" name="title" placeholder="Título" required /> <!--Título de la nota-->
+  </mat-form-field>
+  
+  <mat-form-field appearance="fill">
+    <textarea matInput [(ngModel)]="nota.descripcion" name="description" placeholder="Descripción"></textarea> <!--Descripcción de la nota-->
+  </mat-form-field>
+  
+  <button mat-raised-button color="primary" type="submit">Crear</button> 
+</form>
