@@ -6,6 +6,8 @@ export interface Nota {
   id: number;
   titulo: string;
   descripcion: string;
+  estado: 'pendiente' | 'progreso' | 'completada';
+
 }
 
 @Injectable({ providedIn: 'root' })

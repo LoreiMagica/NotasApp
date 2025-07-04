@@ -1,15 +1,96 @@
+/*Inicio columnas*/
+
+/*estilo para el contenedor de la página completa*/
 .notaContainer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 22px;
-  gap: 6px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  padding: 24px;
+  flex-wrap: wrap; /* Para que se adapte en móviles */
 }
 
+/* Columna del formulario */
+.col-formulario {
+  flex: 1;
+  min-width: 320px;
+  max-width: 450px;
+  align-self: flex-start;
+  height: fit-content;
+}
+
+/* Solo aplica sticky en pantallas grandes 
+(Para que el formulario de crear nota siga al usuario al hacer scroll)*/
+@media (min-width: 811px) {
+  .col-formulario {
+    position: sticky; 
+    top: 24px;
+  }
+}
+
+/* Columna del listado de notas */
+.col-listado {
+  flex: 2;
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+/*Fin columnas*/
+
+
+
+/*Inicio Cuadros de filtros*/
+
+/*Container de ordenar y filtrar*/
+.controlesContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+/*Botones de filtrar y ordenar*/
+.ordenarContainer,
+.filtrarContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/*Fin Cuadros de filtros*/
+
+
+/*Inicio tarjetas de notas*/
+/*contenedor que se crea para cada nota en la lista */
 .tarjetaNota {
   width: 500px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 16px;
+  margin-bottom:30px ;
 }
+
+/*Contenedor del estado de la nota*/
+.estadoContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/*colores de estado de la nota*/
+.chip-pendiente {
+  background-color: #f44336 !important;/* rojo */
+}
+.chip-progreso {
+  background-color: #ff9800 !important;/* naranja */
+}
+.chip-completada {
+  background-color: #4caf50 !important; /* verde */
+}
+
+/*Fin tarjetas de notas*/

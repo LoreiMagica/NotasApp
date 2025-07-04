@@ -1,0 +1,29 @@
+/*Estilo del contenedor del formulario*/
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10%;
+}
+
+/* Estilo del formulario */
+.nota-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 400px;
+}
+
+/*Estilo del div de toggle group*/
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+/*Estilo del grupo de botones de estado*/
+mat-button-toggle-group {
+  display: flex;
+  justify-content: center;
+
+}

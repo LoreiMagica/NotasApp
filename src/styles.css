@@ -2,3 +2,8 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/*Diálogo de editar*/
+.custom-dialog-container .mat-mdc-dialog-container {
+  margin-top: 10% !important;
+}

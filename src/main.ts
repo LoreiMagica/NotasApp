@@ -7,12 +7,14 @@ import { importProvidersFrom } from '@angular/core';
 import { FormsModule } from '@angular/forms'; //Clase de formularios para logearse y crear notas
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 //Cargamos la app y los imports
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
-    importProvidersFrom(FormsModule, BrowserAnimationsModule), provideAnimationsAsync()
+    importProvidersFrom(FormsModule, BrowserAnimationsModule, MatDialogModule), provideAnimationsAsync()
   ]
 }).catch(err => console.error(err));
 //Y en caso de error, lo lanza por consola

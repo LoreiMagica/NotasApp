@@ -1,34 +1,85 @@
 <!-- Página para crear y listar las notas del usuario loggeado-->
 
 <div class="notaContainer">
-  <h2>Notas</h2>
-  
-  <!--Formulario de crear nota (nota-form.component)-->
-  <app-note-form (save)="crearNota($event)"></app-note-form>
+
+  <!--Columna de crear nota-->
+  <div class="col-formulario">
+    <h2 style="padding-left: 5%;">Crear nota</h2>
+    <!--Formulario de crear nota (nota-form.component)-->
+    <app-note-form (save)="crearNota($event)"></app-note-form>
+  </div>
 
 
-  <hr>
-  <!-- Lista para mostrar las notas creadas-->
-  <!--Recorremos la lista de notas del usuario-->
-  <mat-card *ngFor="let nota of notas" appearance="outlined" class="tarjetaNota">
-  
-    <mat-card-header >
-      <mat-card-title>{{ nota.titulo }}</mat-card-title>
-      <mat-card-subtitle>{{ nota.descripcion }}</mat-card-subtitle>
-    </mat-card-header>
-    <!--Escribimos el texto de la nota obtenida-->
 
-    <!--Botones para eliminar y editar la nota-->
-    <mat-card-actions>
-      <button
-        mat-icon-button
-        color="warn"
-        aria-label="Botón para borrar nota"
-        (click)="borrarNota(nota.id)"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
-      <!-- Creamos la función onClick para borrar con el id de la nota -->
-    </mat-card-actions>
-  </mat-card>
+  <!--Columna de listar notas-->
+  <div class="col-listado">
+    <h2>Tus notas</h2>
+
+    <!--Div que contiene todos los botones de filtrar y ordenar-->
+    <div class="controlesContainer">
+
+      <!-- Agrupación para ordenar -->
+      <div class="ordenarContainer">
+        <div style="margin-bottom: 8px;"><strong>Ordenar</strong></div>
+
+        <!--Botones ordenar-->
+        <div style="display: flex; gap: 8px; margin-top: 4px;">
+          <mat-button-toggle-group style="margin-top: 4px;" value="old">
+            <mat-button-toggle value="old" (click)="ordenarPorIdAsc()">Antiguas</mat-button-toggle> <!--Marcamos este por defecto-->
+            <mat-button-toggle (click)="ordenarPorIdDesc()">Nuevas</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+
+      <!-- Agrupación para filtrar -->
+      <div class="filtrarContainer">
+        <div style="margin-bottom: 8px;"><strong>Filtrar</strong></div>
+
+        <mat-button-toggle-group [(ngModel)]="filtroEstado" (change)="filtrarNotas()" style="margin-top: 4px;">
+          <mat-button-toggle value="">Todos</mat-button-toggle> <!--Marcamos este por defecto-->
+          <mat-button-toggle value="pendiente">Pendiente</mat-button-toggle>
+          <mat-button-toggle value="progreso">En progreso</mat-button-toggle>
+          <mat-button-toggle value="completada">Completada</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+
+
+    <!-- Lista para mostrar las notas creadas-->
+    <!--Recorremos la lista de notas del usuario-->
+    <mat-card *ngFor="let nota of notas" appearance="outlined" class="tarjetaNota">
+
+      <mat-card-header>
+        <mat-card-title>{{ nota.titulo }}</mat-card-title> <!--titulo-->
+        <mat-card-subtitle>{{ nota.descripcion }}</mat-card-subtitle> <!--Descripcción-->
+      </mat-card-header>
+      <!--Escribimos el texto de la nota obtenida-->
+
+      <mat-card-content>
+        <div class="estadoContainer">
+          <mat-chip [ngClass]="{
+              'chip-pendiente': nota.estado === 'pendiente',
+              'chip-progreso': nota.estado === 'progreso',
+              'chip-completada': nota.estado === 'completada'
+            }" selected> <!--Cambia el color según el estado de la nota-->
+            {{ getEstadoLegible(nota.estado) }}
+          </mat-chip> <!--Chip que muestra el estado actual-->
+        </div>
+      </mat-card-content>
+      <!--Botones para eliminar y editar la nota-->
+      <mat-card-actions>
+
+        <button mat-icon-button style="color: #4caf50;" aria-label="Botón para editar nota" (click)="editarNota(nota)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <!--Función para editar la nota clickada-->
+
+        <button mat-icon-button color="warn" aria-label="Botón para borrar nota" (click)="borrarNota(nota.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <!-- Creamos la función onClick para borrar con el id de la nota -->
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
 </div>
