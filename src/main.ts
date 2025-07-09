@@ -9,11 +9,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatDialogModule } from '@angular/material/dialog';
 
+import { provideHttpClient } from '@angular/common/http'; //Librería para comunicarse con el backend
+
 
 //Cargamos la app y los imports
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
+        provideHttpClient(), 
     importProvidersFrom(FormsModule, BrowserAnimationsModule, MatDialogModule), provideAnimationsAsync()
   ]
 }).catch(err => console.error(err));

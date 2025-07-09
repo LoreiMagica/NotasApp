@@ -36,7 +36,7 @@ export class NotaFormComponent {
   nota: Nota = { id: 0, titulo: '', descripcion: '', estado: 'pendiente'};
   @Output() save = new EventEmitter<Nota>();
 
-  //Do
+  
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Nota,
     @Optional() private dialogRef: MatDialogRef<NotaFormComponent>
@@ -52,7 +52,6 @@ export class NotaFormComponent {
 
   //Al clickar en el botón "Crear" del formulario en el html, se invoca el método para crear la nota
   onSubmit() {
-    this.save.emit(this.nota);
     if (this.dialogRef) {
       // Si se abrió como diálogo para editar, devolvemos la nota editada
       this.dialogRef.close(this.nota);

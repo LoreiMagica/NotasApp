@@ -30,13 +30,20 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
   login() {
+
     //Comprueba si el usuario y contraseña son correctos
-    if (this.authService.login(this.usuario, this.contrasena)) {
-      //Si es correcto, se va a la página de notas usando el Router
-      this.router.navigate(['/notas']);
-    } else {
+    this.authService.login(this.usuario, this.contrasena).subscribe({
+      next: (response: any) => {
+
+        //Si es correcto, se va a la página de notas usando el Router
+        this.authService.guardarToken(response.access_token); // guarda el token
+        this.router.navigate(['/notas']); //Lleva al usuario a notas
+        
+    }, error: () => {
+
       //Si no es correcto, informa al usuario
       alert('Usuario o contraseña incorrecto');
     }
-  }
+  })
+}
 }

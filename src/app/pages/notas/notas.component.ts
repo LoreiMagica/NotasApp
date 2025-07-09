@@ -55,30 +55,48 @@ filtroEstado: string = '';    // Filtro actual ('' muestra todas)
 
 //Función para cargar las notas al cargar la página web
 ngOnInit(): void {
-  this.notasOriginales = this.notasService.obtenerNotas();
-  this.filtrarNotas(); // Para aplicar filtro si está activo
+
+    this.notasService.obtenerNotas().subscribe({
+    next: (notas: Nota[]) => {
+      this.notasOriginales = notas;
+      this.filtrarNotas();
+    },
+    error: (err) => {
+      console.error('Error al cargar las notas', err);
+    }
+  });
 }
 
  //Función para crear la nueva nota
 crearNota(nota: Nota) {
-  this.notasService.guardarNotas(nota);
-  this.notasOriginales = this.notasService.obtenerNotas();
-  this.filtrarNotas();
+  this.notasService.guardarNotas(nota).subscribe({
+    next: () => {
+      this.ngOnInit(); //Recarga las notas actualizadas
+    },
+    error: (err) => {
+      console.error('Error al guardar la nota', err);
+    }
+  });
 }
 
 //Función para eliminar una nota elegida de la lista
 borrarNota(id: number) {
-  this.notasService.eliminarNotas(id);
-  this.notasOriginales = this.notasService.obtenerNotas();
-  this.filtrarNotas();
+  this.notasService.eliminarNotas(id).subscribe({
+    next: () => {
+      this.ngOnInit(); //Recarga la lista después de borrar la nota
+    },
+    error: (err) => {
+      console.error('Error al borrar la nota', err);
+    }
+  });
 }
 
-// Ordena por ID ascendente
+// Ordena por id ascendente
 ordenarPorIdAsc() {
   this.notas.sort((a, b) => a.id - b.id);
 }
 
-// Ordena por ID descendente
+// Ordena por id descendente
 ordenarPorIdDesc() {
   this.notas.sort((a, b) => b.id - a.id);
 }
@@ -94,18 +112,18 @@ filtrarNotas() {
 
 
 
-  //Función para mostrar mejor el texto del chip que dice el estado de la nota
-  getEstadoLegible(estado: string): string {
-  switch (estado) {
-    case 'pendiente':
-      return 'Pendiente';
-    case 'progreso':
-      return 'En progreso';
-    case 'completada':
-      return 'Completada';
-    default:
-      return estado;
-  }
+//Función para mostrar mejor el texto del chip que dice el estado de la nota
+getEstadoLegible(estado: string): string {
+switch (estado) {
+  case 'pendiente':
+    return 'Pendiente';
+  case 'progreso':
+    return 'En progreso';
+  case 'completada':
+    return 'Completada';
+  default:
+    return estado;
+}
 }
 
 //Función para abrir un diálogo donde el usuario puede actualizar los parámetros de su nota
@@ -119,13 +137,18 @@ editarNota(nota: any) {
     data: nota,
   });
 
-  //Función para actualizar la lista de notas tras editar
-  dialogRef.afterClosed().subscribe((notaEditada) => {
+  //Función para actualizar la base de datos y la lista de notas tras editar
+dialogRef.afterClosed().subscribe((notaEditada: Nota) => {
     if (notaEditada) {
-      const index = this.notas.findIndex((n) => n.id === notaEditada.id);
-      if (index !== -1) {
-        this.notas[index] = notaEditada;
-      }
+      //Llamamos al backend para actualizar la base de datos
+      this.notasService.actualizarNota(notaEditada).subscribe({
+        next: () => {
+          this.ngOnInit(); //Recargamos la lista de notas desde el backend
+        },
+        error: (err) => {
+          console.error('Error al actualizar la nota', err); //Si sucede algún error en el proceso, lo notificamos por consola
+        }
+      });
     }
   });
 }
