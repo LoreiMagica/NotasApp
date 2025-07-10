@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: flex-start;
   gap: 32px;
-  padding: 24px;
+  padding: 74px;
   flex-wrap: wrap; /* Para que se adapte en móviles */
 }
 
@@ -19,6 +19,14 @@
   height: fit-content;
 }
 
+/*Div donde está el nombre de usuario y el botón de cerrar sesión*/
+.divUsuario {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-left: 24px;
+}
 /* Solo aplica sticky en pantallas grandes 
 (Para que el formulario de crear nota siga al usuario al hacer scroll)*/
 @media (min-width: 811px) {

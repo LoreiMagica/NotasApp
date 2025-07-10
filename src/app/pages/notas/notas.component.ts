@@ -1,8 +1,10 @@
 //Clase que se encarga de hacer de puente entre el NotasService y el usuario
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NotaFormComponent } from '../../components/nota-form/nota-form.component'; //Importamos el formulario de notas
+import { NotaFormComponent } from '../../nota-form/nota-form.component'; //Importamos el formulario de notas
 import { NotasService, Nota } from '../../services/notas.service'; //Importamos el servicio de notas
+
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';  //Diálogo para confirmar borrado
 
 //Librería para abrir y cerrar la ventana de editar
 import { MatDialog } from '@angular/material/dialog';
@@ -36,7 +38,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatChipsModule,
     MatButtonToggleModule,
     FormsModule
-  ],
+],
   templateUrl: './notas.component.html',
   styleUrl: './notas.component.css',
 
@@ -53,8 +55,12 @@ notasOriginales: Nota[] = []; // Guarda todas las notas sin filtrar
 notas: Nota[] = [];           // Notas que se muestran
 filtroEstado: string = '';    // Filtro actual ('' muestra todas)
 
+usuario: string = 'usuario';
+
 //Función para cargar las notas al cargar la página web
 ngOnInit(): void {
+
+  this.usuario = localStorage.getItem('usuario') ?? 'usuario';
 
     this.notasService.obtenerNotas().subscribe({
     next: (notas: Nota[]) => {
@@ -80,13 +86,23 @@ crearNota(nota: Nota) {
 }
 
 //Función para eliminar una nota elegida de la lista
-borrarNota(id: number) {
-  this.notasService.eliminarNotas(id).subscribe({
-    next: () => {
-      this.ngOnInit(); //Recarga la lista después de borrar la nota
-    },
-    error: (err) => {
-      console.error('Error al borrar la nota', err);
+borrarNota(id: number, titulo: string) {
+  const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    width: '300px',
+        data: { titulo }, //Enviamos el título para mostrarlo en la ventana emergente
+
+  });  //Crea un diálogo para confirmar si el usuario desea borrar la nota de verdad
+
+  dialogRef.afterClosed().subscribe((confirmado: boolean) => {
+    if (confirmado) {
+      this.notasService.eliminarNotas(id).subscribe({
+        next: () => {
+          this.ngOnInit(); //Recarga la lista después de borrar la nota
+        },
+        error: (err) => {
+          console.error('Error al borrar la nota', err);  //En caso de error informa al usuario
+        }
+      });
     }
   });
 }
@@ -151,5 +167,12 @@ dialogRef.afterClosed().subscribe((notaEditada: Nota) => {
       });
     }
   });
+}
+
+//Función para cerrar la sesión del usuario actual
+cerrarSesion() {
+  localStorage.removeItem('token'); //Borramos el token almacenado
+  localStorage.removeItem('usuario'); //Borramos el token almacenado
+  window.location.href = '/login';  //Volvemos a la página del login
 }
 }

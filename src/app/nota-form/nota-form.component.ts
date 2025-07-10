@@ -2,7 +2,7 @@
 import { Component, EventEmitter, Output, Inject, Optional} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Nota } from '../../services/notas.service'; //Importamos la interfaz para crear notas
+import { Nota } from '../services/notas.service'; //Importamos la interfaz para crear notas
 
 //Librería para abrir y cerrar la ventana de editar
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';

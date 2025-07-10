@@ -37,6 +37,8 @@ export class LoginComponent {
 
         //Si es correcto, se va a la página de notas usando el Router
         this.authService.guardarToken(response.access_token); // guarda el token
+
+        localStorage.setItem('usuario', this.usuario);  //Guardamos el nombre de usuario en localStorage para mostrarlo en la sección de notas
         this.router.navigate(['/notas']); //Lleva al usuario a notas
         
     }, error: () => {

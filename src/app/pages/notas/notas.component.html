@@ -4,6 +4,11 @@
 
   <!--Columna de crear nota-->
   <div class="col-formulario">
+
+    <div class="divUsuario">
+        <h6 class="holaUsuario">¡Hola, {{ usuario }}!</h6>
+      <button mat-raised-button color="accent" (click)="cerrarSesion()">Cerrar sesión</button>
+    </div>
     <h2 style="padding-left: 5%;">Crear nota</h2>
     <!--Formulario de crear nota (nota-form.component)-->
     <app-note-form (save)="crearNota($event)"></app-note-form>
@@ -74,7 +79,7 @@
         </button>
         <!--Función para editar la nota clickada-->
 
-        <button mat-icon-button color="warn" aria-label="Botón para borrar nota" (click)="borrarNota(nota.id)">
+        <button mat-icon-button color="warn" aria-label="Botón para borrar nota" (click)="borrarNota(nota.id, nota.titulo)">
           <mat-icon>delete</mat-icon>
         </button>
         <!-- Creamos la función onClick para borrar con el id de la nota -->
