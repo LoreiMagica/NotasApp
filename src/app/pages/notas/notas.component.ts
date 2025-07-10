@@ -56,6 +56,8 @@ notas: Nota[] = [];           // Notas que se muestran
 filtroEstado: string = '';    // Filtro actual ('' muestra todas)
 
 usuario: string = 'usuario';
+ordenSeleccionado: string = 'old'; // Por defecto seleccionamos "Antiguas"
+
 
 //Función para cargar las notas al cargar la página web
 ngOnInit(): void {
@@ -70,6 +72,7 @@ ngOnInit(): void {
     error: (err) => {
       console.error('Error al cargar las notas', err);
     }
+
   });
 }
 
@@ -124,6 +127,10 @@ filtrarNotas() {
   } else {
     this.notas = this.notasOriginales.filter(nota => nota.estado === this.filtroEstado);
   }
+
+  //Reseteamos el botón de orden a Antiguas primero para evitar errores y cnfusiones
+  this.ordenSeleccionado = 'old';
+  this.ordenarPorIdAsc();
 }
 
 

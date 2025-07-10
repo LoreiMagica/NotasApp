@@ -29,7 +29,7 @@
 
         <!--Botones ordenar-->
         <div style="display: flex; gap: 8px; margin-top: 4px;">
-          <mat-button-toggle-group style="margin-top: 4px;" value="old">
+          <mat-button-toggle-group style="margin-top: 4px;" [(ngModel)]="ordenSeleccionado" >
             <mat-button-toggle value="old" (click)="ordenarPorIdAsc()">Antiguas</mat-button-toggle> <!--Marcamos este por defecto-->
             <mat-button-toggle (click)="ordenarPorIdDesc()">Nuevas</mat-button-toggle>
           </mat-button-toggle-group>
