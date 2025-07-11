@@ -53,7 +53,7 @@ npm i @angular/cli@18
 ``` 
 It's **neccesary** download the [backend](https://github.com/LoreiMagica/Backend_NotasApp) made for this project to use correctly 
 
-## Instrucciones de uso
+## Instructions to use
 **Download** the code of this project [NotasApp](https://github.com/LoreiMagica/NotasApp/archive/refs/heads/main.zip)
 
 **Launch the backend:** from its command console, move to the root folder of the backend and execute: 
