@@ -179,7 +179,8 @@ dialogRef.afterClosed().subscribe((notaEditada: Nota) => {
 //Función para cerrar la sesión del usuario actual
 cerrarSesion() {
   localStorage.removeItem('token'); //Borramos el token almacenado
-  localStorage.removeItem('usuario'); //Borramos el token almacenado
+  localStorage.removeItem('usuario'); //Borramos el usuario almacenado
+  localStorage.removeItem('isLoggedIn'); //Borramos el estado "Está logeado" para authGuard
   window.location.href = '/login';  //Volvemos a la página del login
 }
 }
